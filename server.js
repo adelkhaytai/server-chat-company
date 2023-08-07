@@ -5,17 +5,20 @@ const User = require('./models/User');
 const Message = require('./models/Message')
 const rooms = ['general', 'tech', 'finance', 'crypto'];
 const cors = require('cors');
-const connection = require('./connection')
+const connection = require('./connection');
 app.use(express.urlencoded({extended: true}));
 
 app.use(express.json())
 app.use(cors());
 //
 app.use('/users', userRoutes)
+app.use('/',(req,res)=>{
+  res.send('API is running')
+})
 connection()
 const server = require('http').createServer(app);
 
-const PORT = process.env.PORT 
+const PORT = process.env.PORT || 8976 
 const io = require('socket.io')(server, {
   cors: {
     origin: 'http://localhost:3000',
